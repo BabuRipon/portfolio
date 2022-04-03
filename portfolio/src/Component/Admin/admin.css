@@ -1,0 +1,110 @@
+.admin-main-container{
+    display:flex;
+    width:80%;
+    margin:20px auto;
+}
+
+.admin-nav-section{
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   flex:3;
+   border-right:1px solid #000;
+   margin:0px 20px 0px 0px;
+}
+
+.admin-nav-section .items{
+    text-decoration:none;
+    font-size:1.1rem;
+}
+
+.admin-nav-section .items:hover{
+    color:#41b0bf;
+    border-bottom:1.5px solid #41b0bf;
+}
+
+
+.admin-main-section{
+  display:flex;
+  flex-direction:column;
+  flex:5;
+  padding-left:20px;
+}
+
+@media screen and (max-width: 550px) {
+    .admin-main-container{
+        flex-direction:column;
+        width:90%;
+    }
+
+    .admin-nav-section{
+      flex-direction:row;
+      border-right:none;
+      border-bottom:1px solid #000;
+      justify-content:space-around;
+    }
+
+    .admin-main-section{
+        padding-left:0;
+        margin-top:10px;
+      }
+
+  }
+
+/* skills section start */
+.skill-lists{
+    display:flex;
+    justify-content:space-between;
+}
+
+.delete-skill{
+    color:red;
+    cursor: pointer;
+}
+
+/* skills section end */
+
+.file-input{
+    border:1px solid rgb(67, 60, 173);
+    padding:5px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.quotes-lists-container{
+    display:flex;
+}
+
+.quotes-lists-container .item1{
+    flex:4;
+}
+
+.quotes-lists-container .item2{
+    flex:1;
+}
+
+.quotes-image-div{
+    position:relative;
+    width:100px;
+    height:100px;
+    margin-bottom:10px;
+}
+
+.quotes-image-div img{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+}
+
+.quotes-image-div .delete{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background-color:#d1e7dd;;
+    color:red;
+    position:absolute;
+    top:0;
+    right:0;
+    text-align:center;
+    cursor: pointer;
+}
