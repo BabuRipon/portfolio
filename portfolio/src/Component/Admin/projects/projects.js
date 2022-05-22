@@ -1,22 +1,25 @@
 import Reat,{useState,useEffect} from 'react';
 import Resizer from "react-image-file-resizer";
 import { FaTrashAlt } from "react-icons/fa";
-import {cloudinaryRemoveImage,cloudinaryUploadImage,getAllQuotes,postQuotes,deleteQuotes} from'../../../api/quoteApi';
+import {cloudinaryRemoveImage,cloudinaryUploadImage} from'../../../api/quoteApi';
+import {getAllProjects,postProject,deleteProject} from '../../../api/projectApi'
 
-const QuotesComponent=({setError})=>{
+const ProjectsComponent=({setError})=>{
     const [loading,setLoading] =useState(false);
     const [image,setImage]=useState({});
-    const [author,setAuthor]=useState('');
-    const [quote,setQuote]=useState('');
-    const [quotes,setQuotes]=useState([]);
+    const [description,setDescription]=useState('');
+    const [technology,setTechnology]=useState('');
+    const [projectUrl,setProjectUrl]=useState('');
+    const [technologies,setTechnologies]=useState([]);
+    const [projects,setProjects]=useState([]);
     const [updateStatus,setUpdateStatus]=useState(false);
 
     useEffect(()=>{
 
-      getAllQuotes()
+       getAllProjects()
       .then(res=>{
           console.log(res.data);
-          setQuotes(res.data);
+          setProjects(res.data);
       })
       .catch(err=>{
           console.log(err);
@@ -31,6 +34,8 @@ const QuotesComponent=({setError})=>{
             try {
                 Resizer.imageFileResizer(
                 e.target.files[0],
+                300,
+                300,
                 "JPEG",
                 100,
                 0,
@@ -48,8 +53,8 @@ const QuotesComponent=({setError})=>{
                     })
                 },
                 "base64",
-                300,
-                300
+                200,
+                200
                 );
             } catch (err) {
                 console.log(err);
@@ -61,14 +66,15 @@ const QuotesComponent=({setError})=>{
 
     const onFormSubmitHandler=(e)=>{
         e.preventDefault();
-
-        postQuotes({author,quote,imageUrl:image.url,public_id:image.public_id})
+        console.log('submit handler');
+        postProject({description,technologies,projectLink:projectUrl,imageUrl:image.url,public_id:image.public_id})
         .then(res=>{
             console.log(res.data);
-            setQuote('');
-            setAuthor('');
+            setTechnology('');
+            setTechnologies([]);
+            setDescription('');
             setImage({});
-            setQuotes([...quotes,res.data]);
+            setProjects([...projects,res.data]);
         })
         .catch(err=>{
             console.log(err);
@@ -77,13 +83,13 @@ const QuotesComponent=({setError})=>{
 
     }
 
-    const onQuoteDeleteHandler=(id,public_id)=>{
+    const onProjecctDeleteHandler=(id,public_id)=>{
         //delete image from cloudinary
         cloudinaryRemoveImage({public_id:public_id})
         .then(res=>{
             console.log(res.data);
             //delete quotes from database
-            deleteQuotes(id)
+            deleteProject(id)
             .then(res=>{
                 console.log(res);
                 setUpdateStatus(!updateStatus);
@@ -113,6 +119,11 @@ const QuotesComponent=({setError})=>{
         })
     }
 
+    const addTechnologiesHandler=()=>{
+        setTechnologies(pre=>[...pre,technology]);
+        setTechnology('');
+    }
+
 
     return(
         <>
@@ -139,40 +150,56 @@ const QuotesComponent=({setError})=>{
                     </label>
                     
                 </div>
-                <div className="form-group">
-                    <label className='mb-2'>Author</label>
+                <div className="form-group mt-3">
+                    <label className='mb-2'>Technologies</label>
                     <input 
                     type="text" 
-                    name='author' 
+                    name='technology' 
                     className="form-control" 
-                    placeholder="author" 
-                    value={author}
-                    onChange={e=>setAuthor(e.target.value)}
+                    placeholder="Technology" 
+                    value={technology}
+                    onChange={e=>setTechnology(e.target.value)}
+                    />
+                    <p>
+                        {technologies.map((el,index)=>(
+                            <span key={index} className="technoloogies">{el}</span>
+                        ))}
+                    </p>
+                </div>
+                <span className='btn btn-outline-primary mt-3 px-3' onClick={addTechnologiesHandler}>Add</span>
+                <div className="form-group">
+                    <label className='mb-2'>Description</label>
+                    <input 
+                    type="text" 
+                    name='description' 
+                    className="form-control" 
+                    placeholder="Description" 
+                    value={description}
+                    onChange={e=>setDescription(e.target.value)}
                     />
                 </div>
-                <div className="form-group mt-3">
-                    <label className='mb-2'>Quotes</label>
+                <div className="form-group">
+                    <label className='mb-2'>Project Link</label>
                     <input 
                     type="text" 
-                    name='quote' 
+                    name='projectUrl' 
                     className="form-control" 
-                    placeholder="quotes" 
-                    value={quote}
-                    onChange={e=>setQuote(e.target.value)}
+                    placeholder="Project Url" 
+                    value={projectUrl}
+                    onChange={e=>setProjectUrl(e.target.value)}
                     />
                 </div>
                 <button className='btn btn-outline-primary mt-3 px-3' type='Submit'>Save</button>
            </form>
            <br />
            {
-            quotes.length>0 &&
-            quotes.map(el=>{
+            projects.length>0 &&
+            projects.map(el=>{
                 return(
                     <div className="alert alert-success quotes-lists-container" key={el._id} >
-                        <span className='item1'>{el.quote}</span>
-                        <span className='item2'> - {el.author}</span>
+                        <span className='item1'>{el.description}</span>
                         <span className='delete-skill'
-                        onClick={e=>onQuoteDeleteHandler(el._id,el.public_id)}
+                        onClick={e=>onProjecctDeleteHandler(el._id,el.public_id)}
                         >
                           <FaTrashAlt />
                         </span>
@@ -184,4 +211,4 @@ const QuotesComponent=({setError})=>{
     )
 }
 
-export default QuotesComponent;
+export default ProjectsComponent;

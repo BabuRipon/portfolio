@@ -14,11 +14,14 @@ const NavHeaderComponent=()=>{
                 <h3 className='nav-menu-icon' onClick={onSideNavHandler}>
                    <MdMenu />
                 </h3>
+                {
                 <ul className={navState?'display-side-nav-visible':'display-side-nav-hide'}>
-                    <li><a href='#about'>about</a></li>
-                    <li><a href='#skills'>skills</a></li>
-                    <li><a href='#contact'>contact</a></li>
+                    <li><a href='#about'>About</a></li>
+                    <li><a href='#skills'>Skills</a></li>
+                    <li><a href='#projects'>Peojects</a></li>
+                    <li><a href='#contact'>Contact</a></li>
                 </ul>
+                }
             </div>
     )
 }

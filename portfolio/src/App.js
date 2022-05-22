@@ -6,6 +6,7 @@ import SkillsComponent from './Component/SkillsComponent';
 import CoffieWithMeComponent from './Component/CoffieWithMeComponent';
 import FooterComponent from './Component/FooterComponent';
 import NavHeaderComponent from './Component/NavHeaderComponent';
+import ProjectComponent from './Component/ProjectComponent';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <AboutComponent />
         <InspiringQuotesComponent />
         <SkillsComponent />
+        <ProjectComponent />
         <CoffieWithMeComponent />
         <FooterComponent />
     </div>

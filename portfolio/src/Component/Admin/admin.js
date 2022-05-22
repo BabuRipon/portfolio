@@ -8,7 +8,7 @@ import SkillsComponent from './skills/skills';
 import ToolsComponent from './tools/tools';
 import {LoginStatus} from '../../api/user'
 import ErrorComponent from '../Hoc/error';
-
+import ProjectsComponent from './projects/projects';
 
 const AdminDashboard=()=>{
     const [error,setError]=useState('');
@@ -32,12 +32,14 @@ const AdminDashboard=()=>{
                     <p><Link to='' className='items'>Skills</Link></p>
                     <p><Link to='tools' className='items'>Tools</Link></p>
                     <p><Link to='quotes' className='items'>Quotes</Link></p>
+                    <p><Link to='projects' className='items'>Project</Link></p>
                 </div>
                 <div className='admin-main-section'>
                     <Routes>
                         <Route path='/'  element={<SkillsComponent setError={setError} />} />
                         <Route path='quotes'  element={<QuotesComponent setError={setError} />} />
                         <Route path='tools'   element={<ToolsComponent setError={setError} />}  />
+                        <Route path='projects' element={<ProjectsComponent setError={setError} />} />
                     </Routes>
                 </div>
             </div>

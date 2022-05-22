@@ -12,6 +12,7 @@ const skillRoute=require('./routes/skill')
 const quoteRoute=require('./routes/quote')
 const toolRoute=require('./routes/tool')
 const userRoute=require('./routes/user');
+const projectRoute=require('./routes/project');
 const cloudinaryRoute=require('./routes/cloudinary');
 
 const port=process.env.PORT || 3001;
@@ -35,6 +36,7 @@ app.use('/api/skill',skillRoute)
 app.use('/api/quote',quoteRoute)
 app.use('/api/tool',toolRoute)
 app.use('/api/user',userRoute);
+app.use('/api/project',projectRoute)
 app.use('/api/cloudinary',cloudinaryRoute)
 
 app.get('*',(req,res)=>{
